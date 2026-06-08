@@ -1,36 +1,183 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Trading CRM
 
-## Getting Started
+A full-stack trading journal and account management application built with **Next.js**, **FastAPI**, and **MySQL**. The platform allows traders to record trades, track performance, monitor account growth, and analyze trading statistics through a modern dashboard.
 
-First, run the development server:
+## Features
+
+### Authentication
+
+* User registration and login
+* JWT-based authentication
+* Protected API endpoints
+* User-specific trade records
+
+### Trade Management
+
+* Create new trades
+* View all trades
+* Edit existing trades
+* Delete trades
+* Record:
+
+  * Trading Pair
+  * Direction (Long / Short)
+  * Session (London / New York)
+  * Strategy
+  * Risk Amount
+  * Profit & Loss (PnL)
+  * Status
+  * Comments
+
+### Dashboard Analytics
+
+* Current Account Balance
+* Total Trades
+* Win Rate
+* Total Wins
+* Total PnL
+
+### Account Management
+
+* Starting Balance
+* Current Balance
+* Automatic balance updates when trades are created, edited, or deleted
+
+## Tech Stack
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+
+### Backend
+
+* FastAPI
+* SQLAlchemy
+* JWT Authentication
+* Pydantic
+
+### Database
+
+* MySQL
+
+## Project Structure
+
+```bash
+trade/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── types/
+│   │   └── services/
+│
+├── backend/
+│   ├── routes/
+│   ├── models/
+│   ├── schemas/
+│   ├── utils/
+│   ├── database.py
+│   └── main.py
+│
+└── README.md
+```
+
+## Installation
+
+### Backend
+
+Create a virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate virtual environment:
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run FastAPI:
+
+```bash
+uvicorn main:app --reload
+```
+
+Backend runs on:
+
+```bash
+http://127.0.0.1:8000
+```
+
+### Frontend
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Frontend runs on:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API Endpoints
 
-## Learn More
+### Authentication
 
-To learn more about Next.js, take a look at the following resources:
+```http
+POST /register
+POST /login
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Trades
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```http
+GET    /trades
+GET    /trades/{id}
+POST   /trades
+PUT    /trades/{id}
+DELETE /trades/{id}
+```
 
-## Deploy on Vercel
+### Dashboard
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```http
+GET /dashboard
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Future Improvements
+
+* Trade screenshots
+* Equity curve chart
+* Monthly performance analytics
+* Profit factor calculations
+* Risk-to-reward analysis
+* Trading psychology journal
+* Strategy performance breakdown
+* Cloud deployment
+* Mobile responsive dashboard
+
+## Author
+
+John Ang
+
+Built as a personal project to improve full-stack development skills while creating a practical tool for tracking trading performance.
