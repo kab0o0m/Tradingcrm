@@ -113,8 +113,13 @@ export default function DashboardPage() {
         /> */}
 
         <KpiCard
-          title="PnL"
+          title="P&L"
           value={`$${dashboard?.total_pnl ?? 0}`}
+          color={
+            (dashboard?.total_pnl ?? 0) >= 0
+              ? "text-green-300"
+              : "text-red-400"
+          }
         />
       </div>
 

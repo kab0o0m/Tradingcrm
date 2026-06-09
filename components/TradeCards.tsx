@@ -88,6 +88,8 @@ export default function TradeCards({
               >
                 {trade.direction} •{" "}
                 {trade.session}
+
+                
               </p>
             </div>
 

@@ -2,12 +2,14 @@ interface DashboardCardProps {
   title: string;
   value: string | number;
   change?: string;
+  color?: string;
 }
 
 export default function DashboardCard({
   title,
   value,
-  change
+  change,
+  color = "text-gray-900",
 }: DashboardCardProps) {
   return (
     <div
@@ -35,11 +37,11 @@ export default function DashboardCard({
 
       <div className="mt-1 flex items-center justify-between">
         <h2
-          className="
-          text-xl
-          font-bold
-          text-gray-900
-          "
+          className={`
+            text-xl
+            font-bold
+            ${color}
+          `}
         >
           {value}
         </h2>
@@ -53,7 +55,7 @@ export default function DashboardCard({
             py-1
             text-[10px]
             font-medium
-            text-[#845eed]
+            text-red-600
             "
           >
             {change}

@@ -28,7 +28,6 @@ export default function TradesPage() {
 
       const data =
         await response.json();
-
       setTrades(data);
     }
 
@@ -66,7 +65,7 @@ export default function TradesPage() {
             trade.id !== tradeId
         )
       );
-    }
+    } 
   }
 
   return (
@@ -169,7 +168,7 @@ export default function TradesPage() {
           "
         >
           <p className="text-sm text-gray-500">
-            Open Trades
+            Winning Trades
           </p>
 
           <h2
@@ -184,7 +183,7 @@ export default function TradesPage() {
               trades.filter(
                 (trade) =>
                   trade.status ===
-                  "TRADING"
+                  "SUCCESS"
               ).length
             }
           </h2>
@@ -201,7 +200,7 @@ export default function TradesPage() {
           "
         >
           <p className="text-sm text-gray-500">
-            Winning Trades
+            LOSING TRADES
           </p>
 
           <h2
@@ -215,11 +214,12 @@ export default function TradesPage() {
               trades.filter(
                 (trade) =>
                   trade.status ===
-                  "SUCCESS"
+                  "FAIL"
               ).length
             }
           </h2>
         </div>
+
       </div>
 
       {/* Table Card */}
