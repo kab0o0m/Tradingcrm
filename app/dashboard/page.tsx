@@ -107,10 +107,10 @@ export default function DashboardPage() {
           value={`${dashboard?.win_rate ?? 0}%`}
         />
 
-        <KpiCard
+        {/* <KpiCard
           title="Wins"
           value={dashboard?.wins ?? 0}
-        />
+        /> */}
 
         <KpiCard
           title="PnL"

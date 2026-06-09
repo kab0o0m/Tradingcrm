@@ -1,28 +1,30 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import {
+  useParams,
+  useRouter,
+} from "next/navigation";
 
 export default function EditTradePage() {
-
   const params = useParams();
   const router = useRouter();
 
-  const [formData, setFormData] = useState({
-    pair: "",
-    direction: "",
-    strategy: "",
-    session: "",
-    risk_amount: 0,
-    pnl: 0,
-    status: "",
-    comments: "",
-  });
+  const [formData, setFormData] =
+    useState({
+      pair: "",
+      direction: "",
+      strategy: "",
+      session: "",
+      risk_amount: 0,
+      pnl: 0,
+      status: "",
+      comments: "",
+    });
 
   useEffect(() => {
-
     async function fetchTrade() {
-
       const token =
         localStorage.getItem("token");
 
@@ -43,13 +45,11 @@ export default function EditTradePage() {
     }
 
     fetchTrade();
-
   }, [params.id]);
 
   async function handleSubmit(
     e: React.FormEvent
   ) {
-
     e.preventDefault();
 
     const token =
@@ -75,118 +75,315 @@ export default function EditTradePage() {
   }
 
   return (
-    <div className="p-10">
+    <div className="p-6">
 
-      <h1 className="mb-6 text-3xl font-bold">
-        Edit Trade
-      </h1>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold">
+          Edit Trade
+        </h1>
+
+        <p className="mt-1 text-sm text-gray-500">
+          Update your trade details
+        </p>
+      </div>
 
       <form
         onSubmit={handleSubmit}
-        className="flex max-w-lg flex-col gap-4"
+        className="
+        max-w-4xl
+        rounded-2xl
+        border
+        border-gray-200
+        bg-white
+        p-6
+        shadow-sm
+        "
       >
+        <div className="grid grid-cols-2 gap-6">
 
-        <input
-          value={formData.pair}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              pair: e.target.value,
-            })
-          }
-          className="border p-2"
-        />
+          {/* Pair */}
 
-        <input
-          value={formData.direction}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              direction: e.target.value,
-            })
-          }
-          className="border p-2"
-        />
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Pair
+            </label>
 
-        <input
-          value={formData.strategy}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              strategy: e.target.value,
-            })
-          }
-          className="border p-2"
-        />
+            <input
+              type="text"
+              value={formData.pair}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  pair: e.target.value,
+                })
+              }
+              className="
+              w-full
+              rounded-xl
+              border
+              border-gray-200
+              px-4
+              py-3
+              "
+            />
+          </div>
 
-        <input
-          value={formData.session}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              session: e.target.value,
-            })
-          }
-          className="border p-2"
-        />
+          {/* Direction */}
 
-        <input
-          type="number"
-          value={formData.risk_amount}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              risk_amount:
-                Number(e.target.value),
-            })
-          }
-          className="border p-2"
-        />
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Direction
+            </label>
 
-        <input
-          type="number"
-          value={formData.pnl}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              pnl:
-                Number(e.target.value),
-            })
-          }
-          className="border p-2"
-        />
+            <select
+              value={formData.direction}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  direction:
+                    e.target.value,
+                })
+              }
+              className="
+              w-full
+              rounded-xl
+              border
+              border-gray-200
+              px-4
+              py-3
+              "
+            >
+              <option value="LONG">
+                Long
+              </option>
 
-        <input
-          value={formData.status}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              status: e.target.value,
-            })
-          }
-          className="border p-2"
-        />
+              <option value="SHORT">
+                Short
+              </option>
+            </select>
+          </div>
 
-        <textarea
-          value={formData.comments}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              comments: e.target.value,
-            })
-          }
-          className="border p-2"
-        />
+          {/* Session */}
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Session
+            </label>
+
+            <select
+              value={formData.session}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  session:
+                    e.target.value,
+                })
+              }
+              className="
+              w-full
+              rounded-xl
+              border
+              border-gray-200
+              px-4
+              py-3
+              "
+            >
+              <option value="LONDON">
+                London
+              </option>
+
+              <option value="NEWYORK">
+                New York
+              </option>
+            </select>
+          </div>
+
+          {/* Status */}
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Status
+            </label>
+
+            <select
+              value={formData.status}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  status:
+                    e.target.value,
+                })
+              }
+              className="
+              w-full
+              rounded-xl
+              border
+              border-gray-200
+              px-4
+              py-3
+              "
+            >
+              <option value="TRADING">
+                Trading
+              </option>
+
+              <option value="SUCCESS">
+                Success
+              </option>
+
+              <option value="FAIL">
+                Fail
+              </option>
+
+              <option value="EARLY_EXIT">
+                Early Exit
+              </option>
+
+              <option value="BREAK_EVEN">
+                Break Even
+              </option>
+            </select>
+          </div>
+
+          {/* Risk */}
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Risk Amount
+            </label>
+
+            <input
+              type="number"
+              step="0.01"
+              value={
+                formData.risk_amount
+              }
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  risk_amount:
+                    Number(
+                      e.target.value
+                    ),
+                })
+              }
+              className="
+              w-full
+              rounded-xl
+              border
+              border-gray-200
+              px-4
+              py-3
+              "
+            />
+          </div>
+
+          {/* PnL */}
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              PnL
+            </label>
+
+            <input
+              type="number"
+              step="0.01"
+              value={formData.pnl}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  pnl: Number(
+                    e.target.value
+                  ),
+                })
+              }
+              className="
+              w-full
+              rounded-xl
+              border
+              border-gray-200
+              px-4
+              py-3
+              "
+            />
+          </div>
+
+        </div>
+
+        {/* Strategy */}
+
+        <div className="mt-6">
+          <label className="mb-2 block text-sm font-medium">
+            Strategy
+          </label>
+
+          <textarea
+            rows={4}
+            value={formData.strategy}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                strategy:
+                  e.target.value,
+              })
+            }
+            className="
+            w-full
+            rounded-xl
+            border
+            border-gray-200
+            px-4
+            py-3
+            "
+          />
+        </div>
+
+        {/* Comments */}
+
+        <div className="mt-6">
+          <label className="mb-2 block text-sm font-medium">
+            Comments
+          </label>
+
+          <textarea
+            rows={5}
+            value={formData.comments}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                comments:
+                  e.target.value,
+              })
+            }
+            className="
+            w-full
+            rounded-xl
+            border
+            border-gray-200
+            px-4
+            py-3
+            "
+          />
+        </div>
 
         <button
           type="submit"
-          className="rounded bg-blue-500 p-2 text-white"
+          className="
+          mt-6
+          rounded-xl
+          bg-[#845eed]
+          px-6
+          py-3
+          text-white
+          transition
+          hover:bg-[#7347df]
+          "
         >
-          Save Trade
+          Save Changes
         </button>
 
       </form>
-
     </div>
   );
 }
+

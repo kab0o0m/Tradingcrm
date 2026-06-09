@@ -15,10 +15,6 @@ export default function Sidebar() {
       name: "Trades",
       href: "/trades",
     },
-    {
-      name: "New Trade",
-      href: "/trades/new",
-    },
   ];
 
   return (

@@ -14,6 +14,7 @@ export default function NewTradePage() {
     risk_amount: 0,
     pnl: 0,
     status: "",
+    entry_date: "",
     comments: "",
   });
 
@@ -189,6 +190,35 @@ export default function NewTradePage() {
                 New York
               </option>
             </select>
+          </div>
+
+          {/* Entry Date */}
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Entry Date
+            </label>
+
+            <input
+              type="date"
+              value={formData.entry_date}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  entry_date: e.target.value,
+                })
+              }
+              className="
+              w-full
+              rounded-xl
+              border
+              border-gray-200
+              px-4
+              py-3
+              focus:border-[#845eed]
+              focus:outline-none
+              "
+            />
           </div>
 
           {/* Status */}

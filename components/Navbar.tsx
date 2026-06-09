@@ -28,10 +28,6 @@ export default function Navbar() {
           Trades
         </Link>
 
-        <Link href="/trades/new">
-          New Trade
-        </Link>
-
         <button
           onClick={handleLogout}
           className="cursor-pointer"
