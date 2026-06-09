@@ -11,17 +11,17 @@ export default function EditTradePage() {
   const params = useParams();
   const router = useRouter();
 
-  const [formData, setFormData] =
-    useState({
-      pair: "",
-      direction: "",
-      strategy: "",
-      session: "",
-      risk_amount: 0,
-      pnl: 0,
-      status: "",
-      comments: "",
-    });
+  const [formData, setFormData] = useState({
+    pair: "",
+    direction: "",
+    strategy: "",
+    session: "",
+    risk_amount: 0,
+    pnl: 0,
+    status: "",
+    entry_date: "",
+    comments: "",
+  });
 
   useEffect(() => {
     async function fetchTrade() {
@@ -40,8 +40,13 @@ export default function EditTradePage() {
 
       const data =
         await response.json();
-
-      setFormData(data);
+      console.log(data)
+      setFormData({
+        ...data,
+        entry_date: data.entry_date
+          ? data.entry_date.split("T")[0]
+          : "",
+      });
     }
 
     fetchTrade();
@@ -115,6 +120,31 @@ export default function EditTradePage() {
                 setFormData({
                   ...formData,
                   pair: e.target.value,
+                })
+              }
+              className="
+              w-full
+              rounded-xl
+              border
+              border-gray-200
+              px-4
+              py-3
+              "
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Entry Date
+            </label>
+
+            <input
+              type="date"
+              value={formData.entry_date}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  entry_date: e.target.value,
                 })
               }
               className="
