@@ -31,18 +31,49 @@ export default function Sidebar() {
       "
     >
       <div className="p-6">
+  <div className="flex items-center gap-3">
 
-        <h1
-          className="
-          text-2xl
-          font-bold
-          text-[#845eed]
-          "
-        >
-          Trade CRM
-        </h1>
+    <img
+      src="/Logo.png"
+      alt="OnePercent Logo"
+      className="
+      h-10
+      w-10
+      object-contain
+      "
+    />
 
-      </div>
+    <div>
+      <h1
+        className="
+        text-2xl
+        font-extrabold
+        tracking-tight
+        "
+      >
+        <span className="text-[#845eed]">
+          1%
+        </span>
+
+        <span className="text-gray-900">
+          Percent
+        </span>
+      </h1>
+
+      <p
+        className="
+        -mt-1
+        text-xs
+        tracking-wide
+        text-gray-400
+        "
+      >
+        Trading Journal
+      </p>
+    </div>
+
+  </div>
+</div>
 
       <nav className="px-4">
 

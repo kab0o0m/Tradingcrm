@@ -407,6 +407,7 @@ export default function EditTradePage() {
           text-white
           transition
           hover:bg-[#7347df]
+          cursor-pointer
           "
         >
           Save Changes

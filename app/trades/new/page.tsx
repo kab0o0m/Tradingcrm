@@ -408,6 +408,7 @@ export default function NewTradePage() {
           text-white
           transition
           hover:bg-[#7347df]
+          cursor-pointer
           "
         >
           Create Trade
