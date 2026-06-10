@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import KpiCard from "@/components/DashboardCards";
 import { DashboardData } from "@/types/dashboard";
+import Loader from "@/components/Loader"
 
 export default function DashboardPage() {
   const [dashboard, setDashboard] =
@@ -44,9 +45,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="p-6">
-        Loading...
-      </div>
+      <Loader />
     );
   }
   
@@ -107,10 +106,6 @@ export default function DashboardPage() {
           value={`${dashboard?.win_rate ?? 0}%`}
         />
 
-        {/* <KpiCard
-          title="Wins"
-          value={dashboard?.wins ?? 0}
-        /> */}
 
         <KpiCard
           title="P&L"
@@ -120,6 +115,11 @@ export default function DashboardPage() {
               ? "text-green-300"
               : "text-red-400"
           }
+        />
+
+        <KpiCard
+          title="1% Risk"
+          value={`$${((dashboard?.balance ?? 0 ) /100).toFixed(2) }`}
         />
       </div>
 

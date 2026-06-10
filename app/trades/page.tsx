@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 
 import TradeCards from "@/components/TradeCards";
 import { Trade } from "@/types/trade";
+import Loader from "@/components/Loader"
 
 export default function TradesPage() {
   const [trades, setTrades] =
     useState<Trade[]>([]);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchTrades() {
@@ -29,10 +31,17 @@ export default function TradesPage() {
       const data =
         await response.json();
       setTrades(data);
+      setLoading(false);
     }
 
     fetchTrades();
   }, []);
+
+  if (loading) {
+    return (
+      <Loader />
+    );
+  }  
 
   async function handleDelete(
     tradeId: number
