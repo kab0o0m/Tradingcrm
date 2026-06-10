@@ -8,6 +8,8 @@ import TradeCards from "@/components/TradeCards";
 import { Trade } from "@/types/trade";
 import Loader from "@/components/Loader"
 
+import KpiCard from "@/components/DashboardCards";
+
 export default function TradesPage() {
   const [trades, setTrades] =
     useState<Trade[]>([]);
@@ -30,6 +32,7 @@ export default function TradesPage() {
 
       const data =
         await response.json();
+      
       setTrades(data);
       setLoading(false);
     }
@@ -137,97 +140,77 @@ export default function TradesPage() {
         className="
         mb-6
         grid
-        grid-cols-3
-        gap-4
+        grid-cols-5
+        gap-3
         "
       >
-        <div
-          className="
-          rounded-xl
-          border
-          border-gray-200
-          bg-white
-          p-4
-          shadow-sm
-          "
-        >
-          <p className="text-sm text-gray-500">
-            Total Trades
-          </p>
 
-          <h2
-            className="
-            mt-1
-            text-2xl
-            font-bold
-            "
-          >
-            {trades.length}
-          </h2>
-        </div>
+        <KpiCard
+          title="Total Trades"
+          value={
+            trades.length
+          }
+          
+        />
 
-        <div
-          className="
-          rounded-xl
-          border
-          border-gray-200
-          bg-white
-          p-4
-          shadow-sm
-          "
-        >
-          <p className="text-sm text-gray-500">
-            Winning Trades
-          </p>
-
-          <h2
-            className="
-            mt-1
-            text-2xl
-            font-bold
-            text-[#845eed]
-            "
-          >
-            {
+        <KpiCard
+          title="Win Rate"
+          value={`${(
+            (
               trades.filter(
                 (trade) =>
                   trade.status ===
                   "SUCCESS"
-              ).length
-            }
-          </h2>
-        </div>
+              ).length /
+              Math.max(
+                trades.filter(
+                  (trade) =>
+                    trade.status ===
+                      "SUCCESS" ||
+                    trade.status ===
+                      "FAIL"
+                ).length,
+                1
+              )
+            ) * 100
+          ).toFixed(2)}%`}
+        />
 
-        <div
-          className="
-          rounded-xl
-          border
-          border-gray-200
-          bg-white
-          p-4
-          shadow-sm
-          "
-        >
-          <p className="text-sm text-gray-500">
-            LOSING TRADES
-          </p>
+        <KpiCard
+          title="Winning Trades"
+          value={
+            trades.filter(
+              (trade) =>
+                trade.status ===
+                "SUCCESS"
+            ).length
+          }
+          
+        />
 
-          <h2
-            className="
-            mt-1
-            text-2xl
-            font-bold
-            "
-          >
-            {
-              trades.filter(
-                (trade) =>
-                  trade.status ===
-                  "FAIL"
-              ).length
-            }
-          </h2>
-        </div>
+        <KpiCard
+          title="Losing Trades"
+          value={
+            trades.filter(
+              (trade) =>
+                trade.status ===
+                "FAIL"
+            ).length
+          }
+        />
+
+        <KpiCard
+          title="Early Exit Trades"
+          value={
+            trades.filter(
+              (trade) =>
+                trade.status ===
+                "EARLY_EXIT"
+            ).length
+          } 
+        />
+
+        
 
       </div>
 
