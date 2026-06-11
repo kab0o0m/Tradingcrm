@@ -317,6 +317,88 @@ export default function DashboardPage() {
           </ul>
         </div>
 
+
+        {/* Trading Strategy */}
+
+        <div
+          className="
+          rounded-2xl
+          border
+          border-gray-200
+          bg-white
+          p-5
+          shadow-sm
+          "
+        >
+          <h2
+            className="
+            mb-4
+            text-lg
+            font-semibold
+            "
+          >
+            Trading Strategy
+          </h2>
+
+          <div className="space-y-4 text-sm">
+
+            <div>
+              <p className="font-medium text-gray-900">
+                1. Mark ORB & Liquidity
+              </p>
+
+              <p className="text-gray-600">
+                Mark the first 15 minutes of market open.
+                Identify the most recent 5m high and 5m low.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-medium text-gray-900">
+                2. Fixed Volume Range
+              </p>
+
+              <p className="text-gray-600">
+                Draw a Fixed Volume Range using the first
+                3 candles on the 5-minute chart.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-medium text-gray-900">
+                3. Liquidity Sweep
+              </p>
+
+              <p className="text-gray-600">
+                Wait for price to break out and sweep
+                the recent 5m high or 5m low.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-medium text-gray-900">
+                4. Entry
+              </p>
+
+              <p className="text-gray-600">
+                Enter on the retracement back into the
+                Fixed Volume Range.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-medium text-gray-900">
+                5. Risk Management
+              </p>
+
+              <p className="text-gray-600">
+                Fixed 2:1 Risk-Reward. Risk 1% per trade.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
         <div
           className="
           rounded-xl
