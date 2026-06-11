@@ -8,4 +8,5 @@ export interface Trade {
   pnl: number;
   status: string;
   comments: string;
+  entry_date: string;
 }

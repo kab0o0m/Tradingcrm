@@ -32,7 +32,7 @@ export default function TradesPage() {
 
       const data =
         await response.json();
-      
+      console.log(data)
       setTrades(data);
       setLoading(false);
     }

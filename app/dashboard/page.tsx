@@ -5,10 +5,14 @@ import { useEffect, useState } from "react";
 import KpiCard from "@/components/DashboardCards";
 import { DashboardData } from "@/types/dashboard";
 import Loader from "@/components/Loader"
+import { Trade } from "@/types/trade";
 
 export default function DashboardPage() {
   const [dashboard, setDashboard] =
     useState<DashboardData | null>(null);
+
+  const [recentTrades, setRecentTrades] = 
+    useState<Trade[]>([]);
 
   const [loading, setLoading] =
     useState(true);
@@ -41,6 +45,31 @@ export default function DashboardPage() {
     }
 
     fetchDashboard();
+  }, []);
+
+
+  useEffect(() => {
+    async function fetchRecentTrades() {
+      const token =
+        localStorage.getItem("token");
+
+      const response = await fetch(
+        "http://127.0.0.1:8000/trades/recent",
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data =
+        await response.json();
+
+      setRecentTrades(data);
+    }
+
+    fetchRecentTrades();
   }, []);
 
   if (loading) {
@@ -157,22 +186,135 @@ export default function DashboardPage() {
       >
         <div
           className="
-          col-span-2
-          rounded-xl
+          rounded-2xl
           border
           border-gray-200
           bg-white
-          p-6
+          p-5
           shadow-sm
           "
         >
-          <h2 className="font-semibold">
+          <h2
+            className="
+            mb-4
+            text-lg
+            font-semibold
+            "
+          >
             Recent Trades
           </h2>
 
-          <p className="mt-2 text-sm text-gray-500">
-            Trades table coming next...
-          </p>
+          <div className="space-y-3">
+            {recentTrades.map((trade) => (
+              <div
+                key={trade.id}
+                className="
+                flex
+                items-center
+                justify-between
+                rounded-xl
+                border
+                border-gray-100
+                p-3
+                "
+              >
+                <div>
+                  <p className="font-medium">
+                    {trade.pair}
+                  </p>
+
+                  <p
+                    className="
+                    text-xs
+                    text-gray-500
+                    "
+                  >
+                    {new Date(trade.entry_date)
+                      .toLocaleDateString("en-SG")}
+                  </p>
+                </div>
+
+                <div
+                  className={
+                    trade.pnl >= 0
+                      ? "font-semibold text-green-600"
+                      : "font-semibold text-red-600"
+                  }
+                >
+                  {trade.pnl >= 0
+                    ? `+$${trade.pnl}`
+                    : `-$${Math.abs(
+                        trade.pnl
+                      )}`}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div
+          className="
+          rounded-2xl
+          border
+          border-gray-200
+          bg-white
+          p-5
+          shadow-sm
+          "
+        >
+          <h2
+            className="
+            mb-4
+            text-lg
+            font-semibold
+            text-gray-900
+            "
+          >
+            Trading Rules
+          </h2>
+
+          <ul
+            className="
+            space-y-3
+            text-sm
+            text-gray-600
+            "
+          >
+            <li className="flex items-center gap-2">
+              <span className="text-[#845eed]">
+                •
+              </span>
+              Maximum 2 trades per session
+            </li>
+
+            <li className="flex items-center gap-2">
+              <span className="text-[#845eed]">
+                •
+              </span>
+              Risk 1% per trade
+            </li>
+
+            <li className="flex items-center gap-2">
+              <span className="text-[#845eed]">
+                •
+              </span>
+              Trade only A+ setups
+            </li>
+
+            <li className="flex items-center gap-2">
+              <span className="text-[#845eed]">
+                •
+              </span>
+              No revenge trading
+            </li>
+
+            <li className="flex items-center gap-2">
+              <span className="text-[#845eed]">
+                •
+              </span>
+              Stop after 2 consecutive losses
+            </li>
+          </ul>
         </div>
 
         <div
