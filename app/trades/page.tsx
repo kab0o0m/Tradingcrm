@@ -14,6 +14,11 @@ export default function TradesPage() {
   const [trades, setTrades] =
     useState<Trade[]>([]);
   const [loading, setLoading] = useState(true)
+  const [pairFilter, setPairFilter] =
+  useState("");
+
+  const [sessionFilter, setSessionFilter] =
+    useState("");
 
   useEffect(() => {
     async function fetchTrades() {
@@ -79,6 +84,38 @@ export default function TradesPage() {
       );
     } 
   }
+
+  const filteredTrades =
+  trades.filter((trade) => {
+
+    const pairMatch =
+      !pairFilter ||
+      trade.pair === pairFilter;
+
+    const sessionMatch =
+      !sessionFilter ||
+      trade.session ===
+        sessionFilter;
+
+    return (
+      pairMatch &&
+      sessionMatch
+    );
+  });
+
+  const wins =
+    filteredTrades.filter(
+      (trade) =>
+        trade.status ===
+        "SUCCESS"
+    ).length;
+
+  const losses =
+    filteredTrades.filter(
+      (trade) =>
+        trade.status ===
+        "FAIL"
+    ).length;
 
   return (
     <div className="p-6">
@@ -148,7 +185,7 @@ export default function TradesPage() {
         <KpiCard
           title="Total Trades"
           value={
-            trades.length
+            filteredTrades.length
           }
           
         />
@@ -157,13 +194,13 @@ export default function TradesPage() {
           title="Win Rate"
           value={`${(
             (
-              trades.filter(
+              filteredTrades.filter(
                 (trade) =>
                   trade.status ===
                   "SUCCESS"
               ).length /
               Math.max(
-                trades.filter(
+                filteredTrades.filter(
                   (trade) =>
                     trade.status ===
                       "SUCCESS" ||
@@ -179,7 +216,7 @@ export default function TradesPage() {
         <KpiCard
           title="Winning Trades"
           value={
-            trades.filter(
+            filteredTrades.filter(
               (trade) =>
                 trade.status ===
                 "SUCCESS"
@@ -191,7 +228,7 @@ export default function TradesPage() {
         <KpiCard
           title="Losing Trades"
           value={
-            trades.filter(
+            filteredTrades.filter(
               (trade) =>
                 trade.status ===
                 "FAIL"
@@ -202,7 +239,7 @@ export default function TradesPage() {
         <KpiCard
           title="Early Exit Trades"
           value={
-            trades.filter(
+            filteredTrades.filter(
               (trade) =>
                 trade.status ===
                 "EARLY_EXIT"
@@ -212,6 +249,103 @@ export default function TradesPage() {
 
         
 
+      </div>
+      
+      
+      {/* Filters */}
+      <div
+        className="
+        mb-6
+        flex
+        gap-4
+        "
+      >
+        <select
+          value={pairFilter}
+          onChange={(e) =>
+            setPairFilter(
+              e.target.value
+            )
+          }
+          className="
+          rounded-xl
+          border
+          border-gray-200
+          bg-white
+          px-4
+          py-3
+          "
+        >
+          <option value="">
+            All Pairs
+          </option>
+
+          {[
+            ...new Set(
+              trades.map(
+                (trade) =>
+                  trade.pair
+              )
+            ),
+          ].map((pair) => (
+            <option
+              key={pair}
+              value={pair}
+            >
+              {pair}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={sessionFilter}
+          onChange={(e) =>
+            setSessionFilter(
+              e.target.value
+            )
+          }
+          className="
+          rounded-xl
+          border
+          border-gray-200
+          bg-white
+          px-4
+          py-3
+          "
+        >
+          <option value="">
+            All Sessions
+          </option>
+
+          <option value="LONDON">
+            London
+          </option>
+
+          <option value="NEWYORK">
+            New York
+          </option>
+        </select>
+
+        {(pairFilter ||
+          sessionFilter) && (
+          <button
+            onClick={() => {
+              setPairFilter("");
+              setSessionFilter("");
+            }}
+            className="
+            rounded-xl
+            border
+            border-gray-200
+            px-4
+            py-3
+            text-sm
+            hover:bg-gray-50
+            "
+          >
+            Clear Filters
+          </button>
+        )}
       </div>
 
       {/* Table Card */}
@@ -224,7 +358,7 @@ export default function TradesPage() {
         "
       >
         <TradeCards
-          trades={trades}
+          trades={filteredTrades}
           onDelete={handleDelete}
         />
       </div>
