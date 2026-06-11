@@ -64,6 +64,10 @@ export default function NewsPage() {
                 {article.headline}
               </h2>
 
+              <p>{new Date(
+                article.datetime * 1000
+                ).toLocaleString("en-SG")}</p>
+
               <a
                 href={article.url}
                 target="_blank"
