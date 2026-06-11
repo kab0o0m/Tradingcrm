@@ -15,6 +15,10 @@ export default function Sidebar() {
       name: "Trades",
       href: "/trades",
     },
+    {
+      name: "News",
+      href: "/news",
+    }
   ];
 
   return (
