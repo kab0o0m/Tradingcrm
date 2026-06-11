@@ -10,6 +10,8 @@ import Loader from "@/components/Loader"
 
 import KpiCard from "@/components/DashboardCards";
 
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+
 export default function TradesPage() {
   const [trades, setTrades] =
     useState<Trade[]>([]);
@@ -260,71 +262,103 @@ export default function TradesPage() {
         gap-4
         "
       >
-        <select
-          value={pairFilter}
-          onChange={(e) =>
-            setPairFilter(
-              e.target.value
-            )
-          }
-          className="
-          rounded-xl
-          border
-          border-gray-200
-          bg-white
-          px-4
-          py-3
-          "
-        >
-          <option value="">
-            All Pairs
-          </option>
-
-          {[
-            ...new Set(
-              trades.map(
-                (trade) =>
-                  trade.pair
+        <div className="relative">
+          <select
+            value={pairFilter}
+            onChange={(e) =>
+              setPairFilter(
+                e.target.value
               )
-            ),
-          ].map((pair) => (
-            <option
-              key={pair}
-              value={pair}
-            >
-              {pair}
+            }
+            className="
+            rounded-xl
+            border
+            border-gray-200
+            bg-white
+            px-3
+            py-3
+            pr-8
+            appearance-none
+            "
+          >
+            <option value="">
+              All Pairs
             </option>
-          ))}
-        </select>
 
-        <select
-          value={sessionFilter}
-          onChange={(e) =>
-            setSessionFilter(
-              e.target.value
-            )
-          }
-          className="
-          rounded-xl
-          border
-          border-gray-200
-          bg-white
-          px-4
-          py-3
-          "
-        >
-          <option value="">
-            All Sessions
-          </option>
+            {[
+              ...new Set(
+                trades.map(
+                  (trade) =>
+                    trade.pair
+                )
+              ),
+            ].map((pair) => (
+              <option
+                key={pair}
+                value={pair}
+              >
+                {pair}
+              </option>
+            ))}
+            
+          </select>
+          <ChevronDownIcon
+            className="
+            pointer-events-none
+            absolute
+            right-3
+            top-1/2
+            h-4
+            w-4
+            -translate-y-1/2
+            text-gray-400
+            "
+          />
+        </div>
+        <div className="relative">
+          <select
+            value={sessionFilter}
+            onChange={(e) =>
+              setSessionFilter(
+                e.target.value
+              )
+            }
+            className="
+            rounded-xl
+            border
+            border-gray-200
+            bg-white
+            px-4
+            py-3
+            pr-8
+            appearance-none
+            "
+          >
+            <option value="">
+              All Sessions
+            </option>
 
-          <option value="LONDON">
-            London
-          </option>
+            <option value="LONDON">
+              London
+            </option>
 
-          <option value="NEWYORK">
-            New York
-          </option>
-        </select>
+            <option value="NEWYORK">
+              New York
+            </option>
+          </select>
+          <ChevronDownIcon
+              className="
+              pointer-events-none
+              absolute
+              right-3
+              top-1/2
+              h-4
+              w-4
+              -translate-y-1/2
+              text-gray-400
+              "
+            />
+        </div>
 
         {(pairFilter ||
           sessionFilter) && (
