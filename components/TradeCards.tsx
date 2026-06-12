@@ -117,7 +117,12 @@ export default function TradeCards({
 
           {/* Status */}
 
-          <div className="mt-4">
+          <div 
+          className="mt-4 flex
+                    items-center
+                    justify-between"
+                            
+          >
             <span
               className={
                 "rounded-full px-3 py-1 text-xs font-medium " +
@@ -127,6 +132,18 @@ export default function TradeCards({
               }
             >
               {trade.status}
+            </span>
+            <span>
+              {new Date(
+                trade.entry_date
+              ).toLocaleDateString(
+                "en-SG",
+                {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                }
+              )}
             </span>
           </div>
 
