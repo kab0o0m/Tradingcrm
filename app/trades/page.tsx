@@ -248,14 +248,13 @@ export default function TradesPage() {
         />
 
         <KpiCard
-          title="Early Exit Trades"
-          value={
-            filteredTrades.filter(
-              (trade) =>
-                trade.status ===
-                "EARLY_EXIT"
-            ).length
-          } 
+          title="Total P&L"
+            value={"$" +
+              filteredTrades.reduce(
+                (total, trade) => total + (trade.pnl || 0),
+                0
+              ).toFixed(2)
+            }
         />
 
         
