@@ -111,7 +111,7 @@ export default function AnalyticsCalendar({
       <div
         key={`empty-${i}`}
         className="
-          h-28
+          h-20
           rounded-xl
           bg-transparent
         "
@@ -164,7 +164,7 @@ export default function AnalyticsCalendar({
       <div
         key={date}
         className={`
-          h-28
+          h-20
           rounded-xl
           border
           relative
