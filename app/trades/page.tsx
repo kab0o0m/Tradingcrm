@@ -22,6 +22,9 @@ export default function TradesPage() {
   const [sessionFilter, setSessionFilter] =
     useState("");
 
+  const [statusFilter, setStatusFilter] = useState("")
+
+
   useEffect(() => {
     async function fetchTrades() {
       const token =
@@ -88,22 +91,28 @@ export default function TradesPage() {
   }
 
   const filteredTrades =
-  trades.filter((trade) => {
+    trades.filter((trade) => {
 
-    const pairMatch =
-      !pairFilter ||
-      trade.pair === pairFilter;
+      const pairMatch =
+        !pairFilter ||
+        trade.pair === pairFilter;
 
-    const sessionMatch =
-      !sessionFilter ||
-      trade.session ===
-        sessionFilter;
+      const sessionMatch =
+        !sessionFilter ||
+        trade.session ===
+          sessionFilter;
 
-    return (
-      pairMatch &&
-      sessionMatch
-    );
-  });
+      const statusMatch =
+        !statusFilter ||
+        trade.status ===
+          statusFilter;
+
+      return (
+        pairMatch &&
+        sessionMatch &&
+        statusMatch
+      );
+    });
 
   const wins =
     filteredTrades.filter(
@@ -360,12 +369,70 @@ export default function TradesPage() {
             />
         </div>
 
+        <div className="relative">
+
+        <select
+          value={statusFilter}
+          onChange={(e) =>
+            setStatusFilter(
+              e.target.value
+            )
+          }
+          className="
+          appearance-none
+          rounded-xl
+          border
+          border-gray-200
+          bg-white
+          px-4
+          py-3
+          pr-8
+          "
+        >
+          <option value="">
+            All Results
+          </option>
+
+          <option value="SUCCESS">
+            Success
+          </option>
+
+          <option value="FAIL">
+            Fail
+          </option>
+
+          <option value="EARLY_EXIT">
+            Early Exit
+          </option>
+
+          <option value="BREAK_EVEN">
+            Break Even
+          </option>
+
+        </select>
+
+        <ChevronDownIcon
+          className="
+          pointer-events-none
+          absolute
+          right-3
+          top-1/2
+          h-4
+          w-4
+          -translate-y-1/2
+          text-gray-400
+          "
+        />
+
+      </div>
+
         {(pairFilter ||
-          sessionFilter) && (
+          sessionFilter || statusFilter) && (
           <button
             onClick={() => {
               setPairFilter("");
               setSessionFilter("");
+              setStatusFilter("")
             }}
             className="
             rounded-xl
@@ -375,6 +442,7 @@ export default function TradesPage() {
             py-3
             text-sm
             hover:bg-gray-50
+            cursor-pointer
             "
           >
             Clear Filters
