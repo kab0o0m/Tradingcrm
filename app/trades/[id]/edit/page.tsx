@@ -60,6 +60,10 @@ export default function EditTradePage() {
     const token =
       localStorage.getItem("token");
 
+    if (formData.status == "FAIL") {
+      formData.pnl = -formData.pnl
+    }
+
     const response = await fetch(
       `http://127.0.0.1:8000/trades/${params.id}`,
       {
@@ -73,6 +77,8 @@ export default function EditTradePage() {
         body: JSON.stringify(formData),
       }
     );
+
+    
 
     if (response.ok) {
       router.push("/trades");

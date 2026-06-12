@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import Loader from "@/components/Loader";
 import KpiCard from "@/components/DashboardCards";
+import AnalyticsCalendar from "@/components/AnalyticsCalendar";
 
 import { Trade } from "@/types/trade";
 
@@ -208,22 +209,23 @@ export default function AnalyticsPage() {
           className="
           text-3xl
           font-bold
+          mb--5
           "
         >
           Analytics
         </h1>
-
-        <p
-          className="
-          mt-1
-          text-sm
-          text-gray-500
-          "
-        >
-          Analyze your
-          trading performance
-        </p>
       </div>
+
+      <div
+        className="
+        mb-6
+        "
+        >
+
+        <AnalyticsCalendar
+            trades={trades}
+        />
+        </div>
 
       <div
         className="
