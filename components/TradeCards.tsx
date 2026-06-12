@@ -172,6 +172,7 @@ export default function TradeCards({
               text-red-600
               transition
               hover:bg-red-50
+              cursor-pointer
               "
             >
               Delete
