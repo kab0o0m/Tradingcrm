@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Loader from "@/components/Loader";
 
 export default function NewsPage() {
 
   const [news, setNews] =
     useState<any[]>([]);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
@@ -19,6 +22,7 @@ export default function NewsPage() {
       const data =
         await response.json();
       console.log(data)
+      setLoading(false)
 
       setNews(data);
     }
@@ -27,8 +31,15 @@ export default function NewsPage() {
 
   }, []);
 
+  if (loading) {
+      return (
+        <Loader />
+      );
+    }
+
   return (
     <div className="p-6">
+
 
       <h1
         className="
