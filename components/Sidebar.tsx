@@ -18,6 +18,10 @@ export default function Sidebar() {
     {
       name: "News",
       href: "/news",
+    },
+    {
+      name: "Analytics",
+      href: "/analytics"
     }
   ];
 
