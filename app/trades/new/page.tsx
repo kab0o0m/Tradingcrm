@@ -26,6 +26,10 @@ export default function NewTradePage() {
     const token =
       localStorage.getItem("token");
 
+    if (formData.status == "FAIL") {
+      formData.pnl = -formData.pnl
+    }
+
     const response = await fetch(
       "http://127.0.0.1:8000/trades",
       {
