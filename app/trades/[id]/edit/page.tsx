@@ -29,7 +29,7 @@ export default function EditTradePage() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/trades/${params.id}`,
+        `https://tradingcrmbackend-1.onrender.com/trades/${params.id}`,
         {
           headers: {
             Authorization:
@@ -65,7 +65,7 @@ export default function EditTradePage() {
     }
 
     const response = await fetch(
-      `http://127.0.0.1:8000/trades/${params.id}`,
+      `https://tradingcrmbackend-1.onrender.com//trades/${params.id}`,
       {
         method: "PUT",
         headers: {

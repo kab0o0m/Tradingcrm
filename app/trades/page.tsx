@@ -31,7 +31,7 @@ export default function TradesPage() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/trades",
+        "https://tradingcrmbackend-1.onrender.com/trades",
         {
           headers: {
             Authorization:
@@ -70,7 +70,7 @@ export default function TradesPage() {
       localStorage.getItem("token");
 
     const response = await fetch(
-      `http://127.0.0.1:8000/trades/${tradeId}`,
+      `https://tradingcrmbackend-1.onrender.com/trades/${tradeId}`,
       {
         method: "DELETE",
         headers: {

@@ -18,25 +18,48 @@ export default function DashboardPage() {
     useState(true);
 
   useEffect(() => {
-    async function fetchDashboard() {
+    async function fetchData() {
       try {
         const token =
           localStorage.getItem("token");
 
-        const response = await fetch(
-          "http://127.0.0.1:8000/dashboard",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        const [
+          dashboardResponse,
+          recentTradesResponse,
+        ] = await Promise.all([
+          fetch(
+            "https://tradingcrmbackend-1.onrender.com/dashboard",
+            { headers }
+          ),
+          fetch(
+            "https://tradingcrmbackend-1.onrender.com/trades/recent",
+            { headers }
+          ),
+        ]);
+
+        const [
+          dashboardData,
+          recentTradesData,
+        ] = await Promise.all([
+          dashboardResponse.json(),
+          recentTradesResponse.json(),
+        ]);
+
+        console.log(
+          dashboardData
         );
 
-        const data =
-          await response.json();
-        console.log(data);
+        setDashboard(
+          dashboardData
+        );
 
-        setDashboard(data);
+        setRecentTrades(
+          recentTradesData
+        );
       } catch (error) {
         console.error(error);
       } finally {
@@ -44,32 +67,7 @@ export default function DashboardPage() {
       }
     }
 
-    fetchDashboard();
-  }, []);
-
-
-  useEffect(() => {
-    async function fetchRecentTrades() {
-      const token =
-        localStorage.getItem("token");
-
-      const response = await fetch(
-        "http://127.0.0.1:8000/trades/recent",
-        {
-          headers: {
-            Authorization:
-              `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data =
-        await response.json();
-
-      setRecentTrades(data);
-    }
-
-    fetchRecentTrades();
+    fetchData();
   }, []);
 
   if (loading) {

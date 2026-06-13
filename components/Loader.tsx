@@ -223,7 +223,7 @@ export default function Loader() {
           "
         >
           <span>Spread</span>
-          <span>0.2 pips</span>
+          <span>0.5 pips</span>
         </div>
 
         {/* Mid Price */}

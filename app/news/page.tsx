@@ -16,7 +16,7 @@ export default function NewsPage() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/news"
+          "https://tradingcrmbackend-1.onrender.com/news"
         );
 
       const data =
