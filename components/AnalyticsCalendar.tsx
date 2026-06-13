@@ -100,6 +100,17 @@ export default function AnalyticsCalendar({
     dailyStats[date].trades++;
   });
 
+  const getTradesForDate = (
+    date: string
+  ) => {
+    return trades.filter(
+      (trade) =>
+        trade.entry_date?.split(
+          "T"
+        )[0] === date
+    );
+  };
+
   const cells = [];
 
   for (
@@ -147,6 +158,11 @@ export default function AnalyticsCalendar({
     const tradeCount =
       stats?.trades ?? 0;
 
+    const dayTrades =
+      getTradesForDate(
+        date
+      );
+
     let bgClass =
       "bg-white border-gray-200";
 
@@ -164,6 +180,7 @@ export default function AnalyticsCalendar({
       <div
         key={date}
         className={`
+          group
           h-20
           rounded-xl
           border
@@ -187,49 +204,206 @@ export default function AnalyticsCalendar({
         </div>
 
         {tradeCount > 0 && (
-          <div
-            className="
-              h-full
-              flex
-              flex-col
-              items-center
-              justify-center
-            "
-          >
+          <>
             <div
-              className={`
-                text-lg
-                font-bold
-                ${
-                  pnl > 0
-                    ? "text-green-700"
-                    : "text-red-700"
-                }
-              `}
+              className="
+                h-full
+                flex
+                flex-col
+                items-center
+                justify-center
+                cursor-pointer
+              "
             >
-              {pnl > 0
-                ? "+"
-                : ""}
-              ${pnl.toFixed(
-                2
-              )}
+              <div
+                className={`
+                  text-sm
+                  font-bold
+                  ${
+                    pnl > 0
+                      ? "text-green-700"
+                      : "text-red-700"
+                  }
+                `}
+              >
+                {pnl > 0
+                  ? "+"
+                  : ""}
+                $
+                {pnl.toFixed(
+                  2
+                )}
+              </div>
+
+              <div
+                className="
+                  text-[10px]
+                  text-gray-500
+                  mt-1
+                "
+              >
+                {tradeCount}
+                {" "}
+                Trade
+                {tradeCount > 1
+                  ? "s"
+                  : ""}
+              </div>
             </div>
+
+            {/* Tooltip */}
 
             <div
               className="
-                text-xs
-                text-gray-500
-                mt-1
+                invisible
+                opacity-0
+                group-hover:visible
+                group-hover:opacity-100
+                transition-all
+
+                absolute
+                z-50
+
+                left-1/2
+                top-full
+                mt-2
+
+                -translate-x-1/2
+
+                min-w-[280px]
+
+                rounded-xl
+                border
+                border-gray-200
+
+                bg-white
+                p-4
+
+                shadow-xl
               "
             >
-              {tradeCount}
-              {" "}
-              Trade
-              {tradeCount > 1
-                ? "s"
-                : ""}
+              <div
+                className="
+                  mb-3
+                  text-sm
+                  font-semibold
+                "
+              >
+                {new Date(date).toLocaleDateString('en-GB')}
+              </div>
+
+              <div className="space-y-2">
+                {dayTrades.map(
+                  (
+                    trade
+                  ) => (
+                    <div
+                      key={
+                        trade.id
+                      }
+                      className="
+                        flex
+                        justify-between
+                        text-xs
+                      "
+                    >
+                      <div>
+                        <div
+                          className="
+                            font-medium
+                          "
+                        >
+                          {
+                            trade.pair
+                          }
+                        </div>
+
+                        <div
+                          className="
+                            text-gray-500
+                          "
+                        >
+                          {
+                            trade.session
+                          }
+                        </div>
+                      </div>
+
+                      <div
+                        className={
+                          trade.pnl >=
+                          0
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }
+                      >
+                        {trade.pnl >=
+                        0
+                          ? "+"
+                          : ""}
+                        $
+                        {trade.pnl.toFixed(
+                          2
+                        )}
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+
+              <div
+                className="
+                  mt-3
+                  border-t
+                  pt-3
+                "
+              >
+                <div
+                  className="
+                    flex
+                    justify-between
+                    text-xs
+                    font-semibold
+                  "
+                >
+                  <span>
+                    Total
+                  </span>
+
+                  <span
+                    className={
+                      pnl >= 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }
+                  >
+                    {pnl >= 0
+                      ? "+"
+                      : ""}
+                    $
+                    {pnl.toFixed(
+                      2
+                    )}
+                  </span>
+                </div>
+
+                <div
+                  className="
+                    mt-1
+                    text-xs
+                    text-gray-500
+                  "
+                >
+                  {tradeCount}
+                  {" "}
+                  Trade
+                  {tradeCount > 1
+                    ? "s"
+                    : ""}
+                </div>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     );
@@ -244,9 +418,9 @@ export default function AnalyticsCalendar({
         bg-white
         p-6
         shadow-sm
+        overflow-visible
       "
     >
-
       <div
         className="
           flex
@@ -255,7 +429,6 @@ export default function AnalyticsCalendar({
           mb-6
         "
       >
-
         <button
           onClick={() =>
             setCurrentDate(
@@ -273,6 +446,7 @@ export default function AnalyticsCalendar({
             border
             border-gray-200
             hover:bg-gray-100
+            cursor-pointer
           "
         >
           ←
@@ -309,11 +483,11 @@ export default function AnalyticsCalendar({
             border
             border-gray-200
             hover:bg-gray-100
+            cursor-pointer
           "
         >
           →
         </button>
-
       </div>
 
       <div
@@ -358,7 +532,6 @@ export default function AnalyticsCalendar({
       >
         {cells}
       </div>
-
     </div>
   );
 }
