@@ -7,9 +7,14 @@ import {
   useRouter,
 } from "next/navigation";
 
+import Loader from "@/components/Loader";
+
+
 export default function EditTradePage() {
   const params = useParams();
   const router = useRouter();
+  
+  const [loading, setLoading] = useState(true)
 
   const [formData, setFormData] = useState({
     pair: "",
@@ -47,6 +52,8 @@ export default function EditTradePage() {
           ? data.entry_date.split("T")[0]
           : "",
       });
+
+      setLoading(false)
     }
 
     fetchTrade();
@@ -57,6 +64,8 @@ export default function EditTradePage() {
   ) {
     e.preventDefault();
 
+    setLoading(true)
+
     const token =
       localStorage.getItem("token");
 
@@ -65,7 +74,7 @@ export default function EditTradePage() {
     }
 
     const response = await fetch(
-      `https://tradingcrmbackend-1.onrender.com//trades/${params.id}`,
+      `https://tradingcrmbackend-1.onrender.com/trades/${params.id}`,
       {
         method: "PUT",
         headers: {
@@ -79,10 +88,16 @@ export default function EditTradePage() {
     );
 
     
-
+    
     if (response.ok) {
       router.push("/trades");
     }
+
+    
+  }
+
+  if (loading) {
+    return <Loader/>
   }
 
   return (
