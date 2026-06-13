@@ -305,6 +305,7 @@ export default function EditTradePage() {
 
             <input
               type="number"
+              inputMode="decimal"
               step="0.01"
               value={
                 formData.risk_amount
@@ -338,6 +339,7 @@ export default function EditTradePage() {
 
             <input
               type="number"
+              inputMode="decimal"
               step="0.01"
               value={formData.pnl}
               onChange={(e) =>
@@ -347,6 +349,9 @@ export default function EditTradePage() {
                     e.target.value
                   ),
                 })
+              }
+              onWheel={(e) =>
+                e.currentTarget.blur()
               }
               className="
               w-full
