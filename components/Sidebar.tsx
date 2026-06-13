@@ -22,6 +22,10 @@ export default function Sidebar() {
     {
       name: "Analytics",
       href: "/analytics"
+    },
+    {
+      name:"Sanctuary",
+      href: "/sanctuary"
     }
   ];
 

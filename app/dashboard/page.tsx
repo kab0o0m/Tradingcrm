@@ -89,7 +89,11 @@ export default function DashboardPage() {
           className="
           text-3xl
           font-bold
-          text-gray-900
+          bg-gradient-to-r
+          from-blue-500
+          to-purple-500
+          bg-clip-text
+          text-transparent
           "
         >
           Dashboard
