@@ -327,7 +327,66 @@ export default function AnalyticsPage() {
             )}
           </div>
         </div>
+      <div
+        className="
+        rounded-2xl
+        border
+        border-gray-200
+        bg-white
+        p-5
+        shadow-sm
+        h-30
+        "
+      >
+        <h2
+          className="
+          mb-4
+          text-lg
+          font-semibold
+          "
+        >
+          Last 10 Trades
+        </h2>
 
+        <div className="flex gap-2">
+          {last10Trades.map(
+            (trade) => (
+              <div
+                key={trade.id}
+                className={`
+                  h-10
+                  w-10
+                  rounded-full
+                  flex
+                  items-center
+                  justify-center
+                  text-white
+                  font-bold
+
+                  ${
+                    trade.status ===
+                    "SUCCESS"
+                      ? "bg-green-500"
+                      : trade.status ===
+                        "FAIL"
+                      ? "bg-red-500"
+                      : "bg-gray-400"
+                  }
+                `}
+              >
+                {trade.status ===
+                "SUCCESS"
+                  ? "W"
+                  : trade.status ===
+                    "FAIL"
+                  ? "L"
+                  : "-"}
+              </div>
+            )
+          )}
+        </div>
+
+      </div>
         <div
           className="
           rounded-2xl
@@ -397,66 +456,6 @@ export default function AnalyticsPage() {
               }
             )}
           </div>
-        </div>
-
-      </div>
-
-      <div
-        className="
-        rounded-2xl
-        border
-        border-gray-200
-        bg-white
-        p-5
-        shadow-sm
-        "
-      >
-        <h2
-          className="
-          mb-4
-          text-lg
-          font-semibold
-          "
-        >
-          Last 10 Trades
-        </h2>
-
-        <div className="flex gap-2">
-          {last10Trades.map(
-            (trade) => (
-              <div
-                key={trade.id}
-                className={`
-                  h-10
-                  w-10
-                  rounded-full
-                  flex
-                  items-center
-                  justify-center
-                  text-white
-                  font-bold
-
-                  ${
-                    trade.status ===
-                    "SUCCESS"
-                      ? "bg-green-500"
-                      : trade.status ===
-                        "FAIL"
-                      ? "bg-red-500"
-                      : "bg-gray-400"
-                  }
-                `}
-              >
-                {trade.status ===
-                "SUCCESS"
-                  ? "W"
-                  : trade.status ===
-                    "FAIL"
-                  ? "L"
-                  : "-"}
-              </div>
-            )
-          )}
         </div>
 
       </div>

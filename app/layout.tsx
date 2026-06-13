@@ -31,7 +31,7 @@ export default function RootLayout({
       <body className="bg-[#f8f8fb]">
         <Sidebar />
 
-        <main className="ml-64 min-h-screen">
+        <main className="ml-50 min-h-screen">
           {children}
         </main>
       </body>

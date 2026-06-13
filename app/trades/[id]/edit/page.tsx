@@ -319,6 +319,9 @@ export default function EditTradePage() {
                     ),
                 })
               }
+              onWheel={(e) =>
+                e.currentTarget.blur()
+              }
               className="
               w-full
               rounded-xl

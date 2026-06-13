@@ -32,14 +32,14 @@ export default function Sidebar() {
       left-0
       top-0
       h-screen
-      w-64
+      w-50
       border-r
       border-gray-200
       bg-white
       "
     >
-      <div className="p-6">
-  <div className="flex items-center gap-3">
+      <div className="p-6 pl-3">
+  <div className="flex items-center gap-0 ">
 
     <img
       src="/Logo.png"
