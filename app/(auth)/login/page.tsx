@@ -104,7 +104,7 @@ export default function LoginPage() {
           font-bold
           "
         >
-          One<span className="text-white/70">
+          1%<span className="text-white/70">
             Percent
           </span>
         </h1>
