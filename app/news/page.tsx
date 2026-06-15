@@ -46,6 +46,12 @@ export default function NewsPage() {
         mb-6
         text-3xl
         font-bold
+        bg-gradient-to-r
+          from-violet-500
+          to-purple-500
+          bg-clip-text
+          text-transparent
+          inline-block
         "
       >
         News

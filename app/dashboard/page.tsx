@@ -90,10 +90,11 @@ export default function DashboardPage() {
           text-3xl
           font-bold
           bg-gradient-to-r
-          from-blue-500
+          from-violet-500
           to-purple-500
           bg-clip-text
           text-transparent
+          inline-block
           "
         >
           Dashboard

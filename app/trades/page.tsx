@@ -146,7 +146,12 @@ export default function TradesPage() {
             className="
             text-3xl
             font-bold
-            text-gray-900
+            bg-gradient-to-r
+            from-violet-500
+            to-purple-500
+            bg-clip-text
+            text-transparent
+            inline-block
             "
           >
             Trades

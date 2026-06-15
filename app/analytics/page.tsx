@@ -210,6 +210,12 @@ export default function AnalyticsPage() {
           text-3xl
           font-bold
           mb--5
+          bg-gradient-to-r
+          from-violet-500
+          to-purple-500
+          bg-clip-text
+          text-transparent
+          inline-block
           "
         >
           Analytics
