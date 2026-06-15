@@ -74,7 +74,7 @@ export default function HomePage() {
           "
         >
           <Link
-            href="/dashboard"
+            href="/login"
             className="
             rounded-xl
             bg-[#845eed]
@@ -86,7 +86,7 @@ export default function HomePage() {
             hover:bg-[#7347df]
             "
           >
-            Open Dashboard
+            Login
           </Link>
 
           <Link

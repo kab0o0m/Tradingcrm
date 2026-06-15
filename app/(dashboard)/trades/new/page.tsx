@@ -27,7 +27,7 @@ export default function NewTradePage() {
       localStorage.getItem("token");
 
     if (formData.status == "FAIL") {
-      formData.pnl = -formData.pnl
+      formData.pnl = -Math.abs(formData.pnl)
     }
 
     const response = await fetch(
