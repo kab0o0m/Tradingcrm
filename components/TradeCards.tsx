@@ -46,10 +46,10 @@ export default function TradeCards({
     <div
       className="
       grid
-      gap-4
-      sm:grid-cols-3
-      md:grid-cols-4
-      xl:grid-cols-5
+      gap-8
+      sm:grid-cols-2
+      md:grid-cols-3
+      xl:grid-cols-4
       "
     >
       {trades.map((trade) => (
@@ -60,7 +60,7 @@ export default function TradeCards({
           border
           border-gray-100
           bg-white
-          p-5
+          p-6
           transition
           hover:-translate-y-1
           hover:shadow-lg
@@ -72,7 +72,7 @@ export default function TradeCards({
             <div>
               <h2
                 className="
-                text-lg
+                text-xl
                 font-semibold
                 text-gray-900
                 "
@@ -83,7 +83,7 @@ export default function TradeCards({
               <p
                 className="
                 mt-1
-                text-sm
+                text-medium
                 text-gray-500
                 "
               >
@@ -180,10 +180,10 @@ export default function TradeCards({
                 onDelete(trade.id)
               }
               className="
+              flex-1
               rounded-xl
               border
               border-red-200
-              px-4
               py-2
               text-sm
               font-medium
