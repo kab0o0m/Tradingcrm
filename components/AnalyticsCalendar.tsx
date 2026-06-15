@@ -181,7 +181,7 @@ export default function AnalyticsCalendar({
         key={date}
         className={`
           group
-          h-20
+          h-30
           rounded-xl
           border
           relative
@@ -195,7 +195,7 @@ export default function AnalyticsCalendar({
             absolute
             top-2
             left-3
-            text-sm
+            text-medium
             font-medium
             text-gray-600
           "
@@ -217,7 +217,7 @@ export default function AnalyticsCalendar({
             >
               <div
                 className={`
-                  text-sm
+                  text-medium
                   font-bold
                   ${
                     pnl > 0

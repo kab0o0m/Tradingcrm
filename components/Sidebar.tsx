@@ -36,7 +36,7 @@ export default function Sidebar() {
       left-0
       top-0
       h-screen
-      w-50
+      w-64
       border-r
       border-gray-200
       bg-white
@@ -58,7 +58,7 @@ export default function Sidebar() {
     <div>
       <h1
         className="
-        text-2xl
+        text-3xl
         font-extrabold
         tracking-tight
         "
@@ -75,7 +75,7 @@ export default function Sidebar() {
       <p
         className="
         -mt-1
-        text-xs
+        text-sm
         tracking-wide
         text-gray-400
         "
@@ -105,6 +105,7 @@ export default function Sidebar() {
                 px-4
                 py-3
                 transition
+                text-xl
 
                 ${
                   active
