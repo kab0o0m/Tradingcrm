@@ -187,73 +187,7 @@ export default function DashboardPage() {
         gap-4
         "
       >
-        <div
-          className="
-          rounded-2xl
-          border
-          border-gray-200
-          bg-white
-          p-5
-          shadow-sm
-          "
-        >
-          <h2
-            className="
-            mb-4
-            text-lg
-            font-semibold
-            "
-          >
-            Recent Trades
-          </h2>
 
-          <div className="space-y-3">
-            {recentTrades.map((trade) => (
-              <div
-                key={trade.id}
-                className="
-                flex
-                items-center
-                justify-between
-                rounded-xl
-                border
-                border-gray-100
-                p-3
-                "
-              >
-                <div>
-                  <p className="font-medium">
-                    {trade.pair}
-                  </p>
-
-                  <p
-                    className="
-                    text-xs
-                    text-gray-500
-                    "
-                  >
-                    {new Date(trade.entry_date)
-                      .toLocaleDateString("en-SG")}
-                  </p>
-                </div>
-
-                <div
-                  className={
-                    trade.pnl >= 0
-                      ? "font-semibold text-green-600"
-                      : "font-semibold text-red-600"
-                  }
-                >
-                  {trade.pnl >= 0
-                    ? `+$${trade.pnl}`
-                    : `-$${Math.abs(
-                        trade.pnl
-                      )}`}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
         <div
           className="
@@ -402,24 +336,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div
-          className="
-          rounded-xl
-          border
-          border-gray-200
-          bg-white
-          p-6
-          shadow-sm
-          "
-        >
-          <h2 className="font-semibold">
-            Performance
-          </h2>
-
-          <p className="mt-2 text-sm text-gray-500">
-            Analytics coming next...
-          </p>
-        </div>
       </div>
 
     </div>
