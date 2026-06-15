@@ -69,29 +69,75 @@ export default function TradeCards({
           {/* Header */}
 
           <div className="flex justify-between">
+
             <div>
-              <h2
+
+              <div
                 className="
-                text-xl
-                font-semibold
-                text-gray-900
+                flex
+                items-center
+                gap-2
                 "
               >
-                {trade.pair}
-              </h2>
+                <h2
+                  className="
+                  text-xl
+                  font-semibold
+                  text-gray-900
+                  "
+                >
+                  {trade.pair}
+                </h2>
 
-              <p
+                <span
+                  className={
+                    "rounded-full px-3 py-1 text-xs font-medium " +
+                    getStatusStyle(
+                      trade.status
+                    )
+                  }
+                >
+                  {trade.status}
+                </span>
+              </div>
+
+              <div
                 className="
-                mt-1
-                text-medium
+                mt-2
+                flex
+                items-center
+                gap-2
+                text-sm
                 text-gray-500
                 "
               >
-                {trade.direction} •{" "}
-                {trade.session}
+                <span>
+                  {new Date(
+                    trade.entry_date
+                  ).toLocaleDateString(
+                    "en-SG",
+                    {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    }
+                  )}
+                </span>
+
+                <span className="text-gray-300">
+                  |
+                </span>
+                
+                <span>
+                  {trade.direction} •{" "}
+                  {trade.session}
+                </span>
 
                 
-              </p>
+
+
+              </div>
+
             </div>
 
             <div
@@ -103,7 +149,7 @@ export default function TradeCards({
             >
               <p
                 className="
-                text-xl
+                text-2xl
                 font-bold
                 "
               >
@@ -114,39 +160,9 @@ export default function TradeCards({
                     )}`}
               </p>
             </div>
+
           </div>
 
-          {/* Status */}
-
-          <div 
-          className="mt-4 flex
-                    items-center
-                    justify-between"
-                            
-          >
-            <span
-              className={
-                "rounded-full px-3 py-1 text-xs font-medium " +
-                getStatusStyle(
-                  trade.status
-                )
-              }
-            >
-              {trade.status}
-            </span>
-            <span>
-              {new Date(
-                trade.entry_date
-              ).toLocaleDateString(
-                "en-SG",
-                {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                }
-              )}
-            </span>
-          </div>
 
           {/* Actions */}
 
