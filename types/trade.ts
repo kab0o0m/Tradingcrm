@@ -9,4 +9,5 @@ export interface Trade {
   status: string;
   comments: string;
   entry_date: string;
+  setup_grade?: string;
 }

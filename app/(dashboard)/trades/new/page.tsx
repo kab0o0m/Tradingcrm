@@ -16,6 +16,7 @@ export default function NewTradePage() {
     status: "",
     entry_date: "",
     comments: "",
+    setup_grade: "",
   });
 
   async function handleSubmit(
@@ -314,7 +315,7 @@ export default function NewTradePage() {
 
           <div>
             <label className="mb-2 block text-sm font-medium">
-              PnL
+              P&L
             </label>
 
             <input
@@ -339,6 +340,46 @@ export default function NewTradePage() {
               py-3
               "
             />
+          </div>
+
+          {/* Setup */}
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Setup
+            </label>
+
+            <select
+              value={formData.setup_grade}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  setup_grade:
+                    e.target.value,
+                })
+              }
+              className="
+              w-full
+              rounded-xl
+              border
+              border-gray-200
+              px-4
+              py-3
+              "
+            >
+              <option value="">
+                Select Setup
+              </option>
+
+              <option value="TRADING">
+                Good
+              </option>
+
+              <option value="SUCCESS">
+                Bad
+              </option>
+
+            </select>
           </div>
 
         </div>
