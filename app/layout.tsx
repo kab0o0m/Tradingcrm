@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Trade CRM",
+  title: "1%Percent",
   description: "Trading Journal",
 };
 
