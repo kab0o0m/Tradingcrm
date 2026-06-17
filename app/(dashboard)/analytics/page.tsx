@@ -405,10 +405,10 @@ export default function AnalyticsPage() {
         />
 
         <KpiCard
-          title="Profit Factor"
-          value={profitFactor.toFixed(
+          title="P&L"
+          value={`$${totalPnl.toFixed(
             2
-          )}
+          )}`}
         />
 
         <KpiCard
