@@ -16,6 +16,13 @@ export default function AnalyticsPage() {
   const [loading, setLoading] =
     useState(true);
 
+  const [dateFilter, setDateFilter] = useState("ALL");
+
+  const [customStartDate, setCustomStartDate] = useState("");
+  const [customEndDate, setCustomEndDate] = useState("");
+
+
+
   useEffect(() => {
 
     async function fetchTrades() {
@@ -52,15 +59,111 @@ export default function AnalyticsPage() {
     return <Loader />;
   }
 
+  const filteredTrades =
+  trades.filter((trade) => {
+
+    if (!trade.entry_date)
+      return false;
+
+    const tradeDate =
+      new Date(
+        trade.entry_date
+      );
+
+    const today =
+      new Date();
+
+    if (
+      dateFilter ===
+      "WEEK"
+    ) {
+      const weekAgo =
+        new Date();
+
+      weekAgo.setDate(
+        today.getDate() - 7
+      );
+
+      return (
+        tradeDate >= weekAgo
+      );
+    }
+
+    if (
+      dateFilter ===
+      "MONTH"
+    ) {
+      return (
+        tradeDate.getMonth() ===
+          today.getMonth() &&
+        tradeDate.getFullYear() ===
+          today.getFullYear()
+      );
+    }
+
+    if (
+      dateFilter ===
+      "30D"
+    ) {
+      const monthAgo =
+        new Date();
+
+      monthAgo.setDate(
+        today.getDate() - 30
+      );
+
+      return (
+        tradeDate >= monthAgo
+      );
+    }
+
+    if (
+      dateFilter ===
+      "CUSTOM"
+    ) {
+
+      if (
+        !customStartDate ||
+        !customEndDate
+      ) {
+        return true;
+      }
+
+      const start =
+        new Date(
+          customStartDate
+        );
+
+      const end =
+        new Date(
+          customEndDate
+        );
+
+      end.setHours(
+        23,
+        59,
+        59,
+        999
+      );
+
+      return (
+        tradeDate >= start &&
+        tradeDate <= end
+      );
+    }
+
+    return true;
+  });
+
   const wins =
-    trades.filter(
+    filteredTrades.filter(
       (trade) =>
         trade.status ===
         "SUCCESS"
     );
 
   const losses =
-    trades.filter(
+    filteredTrades.filter(
       (trade) =>
         trade.status ===
         "FAIL"
@@ -111,7 +214,7 @@ export default function AnalyticsPage() {
       : 0;
 
   const totalPnl =
-    trades.reduce(
+    filteredTrades.reduce(
       (sum, trade) =>
         sum + trade.pnl,
       0
@@ -126,7 +229,7 @@ export default function AnalyticsPage() {
       }
     > = {};
 
-  trades.forEach(
+  filteredTrades.forEach(
     (trade) => {
 
       if (
@@ -162,7 +265,7 @@ export default function AnalyticsPage() {
       }
     > = {};
 
-  trades.forEach(
+  filteredTrades.forEach(
     (trade) => {
 
       if (
@@ -199,7 +302,7 @@ export default function AnalyticsPage() {
   );
 
   const last10Trades =
-    trades.slice(0, 10);
+    filteredTrades.slice(0, 10);
 
   return (
     <div className="p-6">
@@ -222,6 +325,12 @@ export default function AnalyticsPage() {
         </h1>
       </div>
 
+
+
+
+
+
+
       <div
         className="
         mb-6
@@ -231,7 +340,54 @@ export default function AnalyticsPage() {
         <AnalyticsCalendar
             trades={trades}
         />
+      </div>
+
+            <div
+        className="
+        mt-4
+        mb-6
+        flex
+        flex-wrap
+        gap-2
+        "
+      >
+        {[
+          { label: "All Time", value: "ALL" },
+          { label: "Past Week", value: "WEEK" },
+          { label: "Past 30 Days", value: "30D" },
+          { label: "This Month", value: "MONTH" },
+          { label: "Custom", value: "CUSTOM" },
+        ].map((filter) => (
+          <button
+            key={filter.value}
+            onClick={() => setDateFilter(filter.value)}
+            className={`px-4 py-2 rounded-xl border ${
+              dateFilter === filter.value
+                ? "bg-[#845eed] text-white border-[#845eed]"
+                : "bg-white border-gray-200"
+            }`}
+          >
+            {filter.label}
+          </button>
+        ))}
+      </div>
+
+            {dateFilter === "CUSTOM" && (
+        <div className="mb-6 flex gap-4">
+          <input
+            type="date"
+            value={customStartDate}
+            onChange={(e) => setCustomStartDate(e.target.value)}
+            className="rounded-xl border border-gray-200 px-4 py-2"
+          />
+          <input
+            type="date"
+            value={customEndDate}
+            onChange={(e) => setCustomEndDate(e.target.value)}
+            className="rounded-xl border border-gray-200 px-4 py-2"
+          />
         </div>
+      )}
 
       <div
         className="
