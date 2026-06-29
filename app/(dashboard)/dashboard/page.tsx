@@ -17,6 +17,30 @@ export default function DashboardPage() {
   const [loading, setLoading] =
     useState(true);
 
+  const [checklist, setChecklist] =
+    useState([
+      {
+        id: 1,
+        task: "11am Check Forex news",
+        completed: false,
+      },
+      {
+        id: 2,
+        task: "3pm Mark 5m candles & Liquidity",
+        completed: false,
+      },
+      {
+        id: 3,
+        task: "Fixed volume for 15m",
+        completed: false,
+      },
+      {
+        id: 4,
+        task: "Set Notifications",
+        completed: false,
+      },
+    ]);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -67,8 +91,30 @@ export default function DashboardPage() {
       }
     }
 
+
+
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const saved =
+      localStorage.getItem(
+        "dailyChecklist"
+      );
+
+    if (saved) {
+      setChecklist(
+        JSON.parse(saved)
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "dailyChecklist",
+      JSON.stringify(checklist)
+    );
+  }, [checklist]);
 
   if (loading) {
     return (
@@ -76,7 +122,19 @@ export default function DashboardPage() {
     );
   }
   
-  
+  function toggleTask(id: number) {
+    setChecklist(
+      checklist.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              completed:
+                !item.completed,
+            }
+          : item
+      )
+    );
+  }
 
   return (
     
@@ -335,6 +393,98 @@ export default function DashboardPage() {
 
           </div>
         </div>
+
+
+        {/* Todo */}
+        <div
+            className="
+            rounded-2xl
+            border
+            border-gray-200
+            bg-white
+            p-5
+            shadow-sm
+            "
+          >
+            <h2
+              className="
+              mb-4
+              text-lg
+              font-semibold
+              "
+            >
+              Daily Checklist
+            </h2>
+
+            <div className="space-y-4">
+
+              {checklist.map(
+                (item) => (
+                  <label
+                    key={item.id}
+                    className="
+                    flex
+                    items-center
+                    gap-3
+                    cursor-pointer
+                    "
+                  >
+                    <input
+                      type="checkbox"
+                      checked={
+                        item.completed
+                      }
+                      onChange={() =>
+                        toggleTask(
+                          item.id
+                        )
+                      }
+                      className="
+                      h-5
+                      w-5
+                      accent-[#845eed]
+                      "
+                    />
+
+                    <span
+                      className={
+                        item.completed
+                          ? "text-gray-400 line-through"
+                          : "text-gray-700"
+                      }
+                    >
+                      {item.task}
+                    </span>
+                  </label>
+                )
+              )}
+
+            </div>
+
+            <div
+              className="
+              mt-6
+              rounded-xl
+              bg-[#845eed]/10
+              p-3
+              text-sm
+              text-[#845eed]
+              "
+            >
+              {
+                checklist.filter(
+                  (item) =>
+                    item.completed
+                ).length
+              }
+              /
+              {
+                checklist.length
+              }
+              {" "}
+              tasks completed
+            </div>
+          </div>
 
       </div>
 
