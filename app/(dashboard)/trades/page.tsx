@@ -26,6 +26,9 @@ export default function TradesPage() {
 
   const [goodBadFilter, setGoodBadFilter] = useState("")
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const tradesPerPage = 16;
+
 
   useEffect(() => {
     async function fetchTrades() {
@@ -118,7 +121,13 @@ export default function TradesPage() {
         goodBadMatch
       );
     });
+  
+  const totalPages = Math.ceil(filteredTrades.length / tradesPerPage);
 
+  const startIndex = (currentPage - 1) * tradesPerPage;
+
+  const paginatedTrades = filteredTrades.slice(startIndex, startIndex + tradesPerPage)
+  
   const wins =
     filteredTrades.filter(
       (trade) =>
@@ -283,10 +292,10 @@ export default function TradesPage() {
         <div className="relative">
           <select
             value={pairFilter}
-            onChange={(e) =>
-              setPairFilter(
-                e.target.value
-              )
+            onChange={(e) => {
+                setPairFilter(e.target.value);
+                setCurrentPage(1);
+              } 
             }
             className="
             rounded-xl
@@ -519,12 +528,79 @@ export default function TradesPage() {
         "
       >
         <TradeCards
-          trades={filteredTrades}
+          trades={paginatedTrades}
           onDelete={handleDelete}
         />
       </div>
 
+      <div className="mt-8 flex justify-center gap-2">
+
+        <button
+          disabled={currentPage === 1}
+          onClick={() =>
+            setCurrentPage(currentPage - 1)
+          }
+          className="
+          rounded-xl
+          border
+          px-4
+          py-2
+          disabled:opacity-50
+          cursor-pointer
+          "
+        >
+          Previous
+        </button>
+
+        {Array.from(
+          { length: totalPages },
+          (_, i) => (
+            <button
+              key={i}
+              onClick={() =>
+                setCurrentPage(i + 1)
+              }
+              className={`
+                rounded-xl
+                px-4
+                py-2
+                
+                ${
+                  currentPage === i + 1
+                    ? "bg-[#845eed] text-white "
+                    : "border cursor-pointer"
+                }
+              `}
+            >
+              {i + 1}
+            </button>
+          )
+        )}
+
+        <button
+          disabled={
+            currentPage === totalPages
+          }
+          onClick={() =>
+            setCurrentPage(currentPage + 1)
+          }
+          className="
+          rounded-xl
+          border
+          px-4
+          py-2
+          disabled:opacity-50
+          cursor-pointer
+          "
+        >
+          Next
+        </button>
+
+      </div>
+
     </div>
+
+    
   );
 }
 
