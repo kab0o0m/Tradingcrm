@@ -371,11 +371,11 @@ export default function NewTradePage() {
                 Select Setup
               </option>
 
-              <option value="TRADING">
+              <option value="Good">
                 Good
               </option>
 
-              <option value="SUCCESS">
+              <option value="Bad">
                 Bad
               </option>
 

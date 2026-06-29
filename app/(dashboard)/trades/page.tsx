@@ -24,6 +24,8 @@ export default function TradesPage() {
 
   const [statusFilter, setStatusFilter] = useState("")
 
+  const [goodBadFilter, setGoodBadFilter] = useState("")
+
 
   useEffect(() => {
     async function fetchTrades() {
@@ -107,10 +109,13 @@ export default function TradesPage() {
         trade.status ===
           statusFilter;
 
+      const goodBadMatch = !goodBadFilter || trade.setup_grade === goodBadFilter;
+
       return (
         pairMatch &&
         sessionMatch &&
-        statusMatch
+        statusMatch &&
+        goodBadMatch
       );
     });
 
@@ -429,6 +434,56 @@ export default function TradesPage() {
         />
 
       </div>
+
+      <div className="relative">
+
+      <select
+        value={goodBadFilter}
+        onChange={(e) =>
+          setGoodBadFilter(
+            e.target.value
+          )
+        }
+        className="
+        appearance-none
+        rounded-xl
+        border
+        border-gray-200
+        bg-white
+        px-4
+        py-3
+        pr-8
+        "
+      >
+        <option value="">
+          All Grades
+        </option>
+
+        <option value="Good">
+          Good
+        </option>
+
+        <option value="Bad">
+          Bad
+        </option>
+
+
+      </select>
+
+      <ChevronDownIcon
+        className="
+        pointer-events-none
+        absolute
+        right-3
+        top-1/2
+        h-4
+        w-4
+        -translate-y-1/2
+        text-gray-400
+        "
+      />
+
+    </div>
 
         {(pairFilter ||
           sessionFilter || statusFilter) && (
