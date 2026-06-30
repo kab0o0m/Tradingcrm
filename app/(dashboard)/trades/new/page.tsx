@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Loader from "@/components/Loader";
 
 export default function NewTradePage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
     pair: "",
@@ -23,6 +25,7 @@ export default function NewTradePage() {
     e: React.FormEvent
   ) {
     e.preventDefault();
+    setLoading(true)
 
     const token =
       localStorage.getItem("token");
@@ -44,11 +47,17 @@ export default function NewTradePage() {
         body: JSON.stringify(formData),
       }
     );
+    
 
     if (response.ok) {
       router.push("/trades");
     }
+    
   }
+
+  if (loading) {
+      return <Loader/>
+    }
 
   return (
     <div className="p-6">
