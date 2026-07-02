@@ -412,18 +412,17 @@ export default function AnalyticsPage() {
         />
 
         <KpiCard
-          title="Avg Win"
-          value={`$${avgWin.toFixed(
-            2
-          )}`}
+          title="Wins"
+          value={`${wins.length}`}
         />
 
         <KpiCard
-          title="Avg Loss"
-          value={`$${avgLoss.toFixed(
-            2
-          )}`}
+          title="Losses"
+          value={`${losses.length}`}
         />
+
+
+        
       </div>
 
       <div
@@ -434,122 +433,7 @@ export default function AnalyticsPage() {
         gap-4
         "
       >
-
-        <div
-          className="
-          rounded-2xl
-          border
-          border-gray-200
-          bg-white
-          p-5
-          shadow-sm
-          "
-        >
-          <h2
-            className="
-            mb-4
-            text-lg
-            font-semibold
-            "
-          >
-            Pair Performance
-          </h2>
-
-          <div className="space-y-3">
-            {Object.entries(
-              pairStats
-            ).map(
-              ([pair, stats]) => (
                 <div
-                  key={pair}
-                  className="
-                  flex
-                  justify-between
-                  "
-                >
-                  <span>
-                    {pair}
-                  </span>
-
-                  <span
-                    className={
-                      stats.pnl >=
-                      0
-                        ? "text-green-600"
-                        : "text-red-600"
-                    }
-                  >
-                    $
-                    {stats.pnl.toFixed(
-                      2
-                    )}
-                  </span>
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      <div
-        className="
-        rounded-2xl
-        border
-        border-gray-200
-        bg-white
-        p-5
-        shadow-sm
-        h-30
-        "
-      >
-        <h2
-          className="
-          mb-4
-          text-lg
-          font-semibold
-          "
-        >
-          Last 10 Trades
-        </h2>
-
-        <div className="flex gap-2">
-          {last10Trades.map(
-            (trade) => (
-              <div
-                key={trade.id}
-                className={`
-                  h-10
-                  w-10
-                  rounded-full
-                  flex
-                  items-center
-                  justify-center
-                  text-white
-                  font-bold
-
-                  ${
-                    trade.status ===
-                    "SUCCESS"
-                      ? "bg-green-500"
-                      : trade.status ===
-                        "FAIL"
-                      ? "bg-red-500"
-                      : "bg-gray-400"
-                  }
-                `}
-              >
-                {trade.status ===
-                "SUCCESS"
-                  ? "W"
-                  : trade.status ===
-                    "FAIL"
-                  ? "L"
-                  : "-"}
-              </div>
-            )
-          )}
-        </div>
-
-      </div>
-        <div
           className="
           rounded-2xl
           border
@@ -619,6 +503,124 @@ export default function AnalyticsPage() {
             )}
           </div>
         </div>
+
+              <div
+        className="
+        rounded-2xl
+        border
+        border-gray-200
+        bg-white
+        p-5
+        shadow-sm
+        h-30
+        "
+      >
+        <h2
+          className="
+          mb-4
+          text-lg
+          font-semibold
+          "
+        >
+          Last 10 Trades
+        </h2>
+
+        <div className="flex gap-2">
+          {last10Trades.map(
+            (trade) => (
+              <div
+                key={trade.id}
+                className={`
+                  h-10
+                  w-10
+                  rounded-full
+                  flex
+                  items-center
+                  justify-center
+                  text-white
+                  font-bold
+
+                  ${
+                    trade.status ===
+                    "SUCCESS"
+                      ? "bg-green-500"
+                      : trade.status ===
+                        "FAIL"
+                      ? "bg-red-500"
+                      : "bg-gray-400"
+                  }
+                `}
+              >
+                {trade.status ===
+                "SUCCESS"
+                  ? "W"
+                  : trade.status ===
+                    "FAIL"
+                  ? "L"
+                  : "-"}
+              </div>
+            )
+          )}
+        </div>
+
+      </div>
+
+        <div
+          className="
+          rounded-2xl
+          border
+          border-gray-200
+          bg-white
+          p-5
+          shadow-sm
+          "
+        >
+          <h2
+            className="
+            mb-4
+            text-lg
+            font-semibold
+            "
+          >
+            Pair Performance
+          </h2>
+
+          <div className="space-y-3">
+            {Object.entries(
+              pairStats
+            ).map(
+              ([pair, stats]) => (
+                <div
+                  key={pair}
+                  className="
+                  flex
+                  justify-between
+                  "
+                >
+                  <span>
+                    {pair}
+                  </span>
+
+                  <span
+                    className={
+                      stats.pnl >=
+                      0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }
+                  >
+                    $
+                    {stats.pnl.toFixed(
+                      2
+                    )}
+                  </span>
+                </div>
+              )
+            )}
+          </div>
+        </div>
+
+
 
       </div>
 
