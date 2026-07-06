@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 
 import Loader from "@/components/Loader";
 import KpiCard from "@/components/DashboardCards";
-import AnalyticsCalendar from "@/components/AnalyticsCalendar";
+import AnalyticsFilters from "@/components/analytics/AnalyticsFilters";
+import AnalyticsStatistics from "@/components/analytics/AnalyticsStatistics";
+import PairPerformance from "@/components/analytics/AnalyticsPairPerformance";
+import SessionPerformance from "@/components/analytics/AnalyticsSessionPerformance";
+import AnalyticsCalendar from "@/components/analytics/AnalyticsCalendar";
+import AnalyticsPnLChart from "@/components/analytics/AnalyticsPnLChart";
+import AnalyticsWinLossChart from "@/components/analytics/AnalyticsWinLossChart";
 
 import { Trade } from "@/types/trade";
 
@@ -20,7 +26,12 @@ export default function AnalyticsPage() {
 
   const [customStartDate, setCustomStartDate] = useState("");
   const [customEndDate, setCustomEndDate] = useState("");
+  const [session, setSession] = useState("LONDON");
 
+  const [stats, setStats] = useState<{
+    wins: number;
+    losses: number;
+  } | null>(null);
 
 
   useEffect(() => {
@@ -329,101 +340,45 @@ export default function AnalyticsPage() {
 
 
 
+      <AnalyticsCalendar 
+        trades={trades}/>
 
+      <AnalyticsFilters
+        dateFilter={dateFilter}
+        setDateFilter={setDateFilter}
+        customStartDate={customStartDate}
+        setCustomStartDate={setCustomStartDate}
+        customEndDate={customEndDate}
+        setCustomEndDate={setCustomEndDate}
+      />
 
-      <div
-        className="
-        mb-6
-        "
-        >
+      <AnalyticsStatistics
+        winRate={winRate}
+        totalPnl={totalPnl}
+        wins={wins.length}
+        losses={losses.length}
+        profitFactor={profitFactor}
+        avgWin={avgWin}
+        avgLoss={avgLoss}
+      />
 
-        <AnalyticsCalendar
-            trades={trades}
-        />
-      </div>
+      <div className="mt-6 grid grid-cols-3 gap-4">
 
-            <div
-        className="
-        mt-4
-        mb-6
-        flex
-        flex-wrap
-        gap-2
-        "
-      >
-        {[
-          { label: "All Time", value: "ALL" },
-          { label: "Past Week", value: "WEEK" },
-          { label: "Past 30 Days", value: "30D" },
-          { label: "This Month", value: "MONTH" },
-          { label: "Custom", value: "CUSTOM" },
-        ].map((filter) => (
-          <button
-            key={filter.value}
-            onClick={() => setDateFilter(filter.value)}
-            className={`px-4 py-2 rounded-xl border ${
-              dateFilter === filter.value
-                ? "bg-[#845eed] text-white border-[#845eed]"
-                : "bg-white border-gray-200"
-            }`}
-          >
-            {filter.label}
-          </button>
-        ))}
-      </div>
-
-            {dateFilter === "CUSTOM" && (
-        <div className="mb-6 flex gap-4">
-          <input
-            type="date"
-            value={customStartDate}
-            onChange={(e) => setCustomStartDate(e.target.value)}
-            className="rounded-xl border border-gray-200 px-4 py-2"
-          />
-          <input
-            type="date"
-            value={customEndDate}
-            onChange={(e) => setCustomEndDate(e.target.value)}
-            className="rounded-xl border border-gray-200 px-4 py-2"
-          />
+        <div className="col-span-2">
+            <AnalyticsPnLChart
+                trades={filteredTrades}
+            />
         </div>
-      )}
 
-      <div
-        className="
-        mb-6
-        grid
-        grid-cols-4
-        gap-4
-        "
-      >
-        <KpiCard
-          title="Win Rate"
-          value={`${winRate.toFixed(
-            2
-          )}%`}
-        />
+          <AnalyticsWinLossChart
+            wins={wins.length}
+            losses={losses.length}
+            />
 
-        <KpiCard
-          title="P&L"
-          value={`$${totalPnl.toFixed(
-            2
-          )}`}
-        />
-
-        <KpiCard
-          title="Wins"
-          value={`${wins.length}`}
-        />
-
-        <KpiCard
-          title="Losses"
-          value={`${losses.length}`}
-        />
+    </div>
 
 
-        
-      </div>
+
 
       <div
         className="
@@ -433,76 +388,14 @@ export default function AnalyticsPage() {
         gap-4
         "
       >
-                <div
-          className="
-          rounded-2xl
-          border
-          border-gray-200
-          bg-white
-          p-5
-          shadow-sm
-          "
-        >
-          <h2
-            className="
-            mb-4
-            text-lg
-            font-semibold
-            "
-          >
-            Session
-            Performance
-          </h2>
-
-          <div className="space-y-3">
-            {Object.entries(
-              sessionStats
-            ).map(
-              (
-                [
-                  session,
-                  stats,
-                ]
-              ) => {
-
-                const rate =
-                  (
-                    stats.wins /
-                    Math.max(
-                      stats.wins +
-                        stats.losses,
-                      1
-                    )
-                  ) * 100;
-
-                return (
-                  <div
-                    key={
-                      session
-                    }
-                    className="
-                    flex
-                    justify-between
-                    "
-                  >
-                    <span>
-                      {
-                        session
-                      }
-                    </span>
-
-                    <span>
-                      {rate.toFixed(
-                        1
-                      )}
-                      %
-                    </span>
-                  </div>
-                );
-              }
-            )}
-          </div>
-        </div>
+      <SessionPerformance
+        sessionStats={sessionStats}
+        selectedSession={session}
+        onSelect={(selected, stats) => {
+            setSession(selected);
+            setStats(stats);
+        }}
+    />
 
               <div
         className="
@@ -565,60 +458,11 @@ export default function AnalyticsPage() {
 
       </div>
 
-        <div
-          className="
-          rounded-2xl
-          border
-          border-gray-200
-          bg-white
-          p-5
-          shadow-sm
-          "
-        >
-          <h2
-            className="
-            mb-4
-            text-lg
-            font-semibold
-            "
-          >
-            Pair Performance
-          </h2>
+      <PairPerformance
+          pairStats={pairStats}
+      />
 
-          <div className="space-y-3">
-            {Object.entries(
-              pairStats
-            ).map(
-              ([pair, stats]) => (
-                <div
-                  key={pair}
-                  className="
-                  flex
-                  justify-between
-                  "
-                >
-                  <span>
-                    {pair}
-                  </span>
 
-                  <span
-                    className={
-                      stats.pnl >=
-                      0
-                        ? "text-green-600"
-                        : "text-red-600"
-                    }
-                  >
-                    $
-                    {stats.pnl.toFixed(
-                      2
-                    )}
-                  </span>
-                </div>
-              )
-            )}
-          </div>
-        </div>
 
 
 

@@ -419,6 +419,7 @@ export default function AnalyticsCalendar({
         p-6
         shadow-sm
         overflow-visible
+        mb-5
       "
     >
       <div
