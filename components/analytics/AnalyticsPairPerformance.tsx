@@ -76,11 +76,11 @@ export default function AnalyticsPairPerformance({
             />
 
             <Tooltip
-              formatter={(value:number) => [
-                `$${value}`,
-                "P&L",
-              ]}
-            />
+                formatter={(value) => [
+                    `$${Number(value).toFixed(2)}`,
+                    "P&L",
+                ]}
+                />
 
             <Bar
               dataKey="pnl"

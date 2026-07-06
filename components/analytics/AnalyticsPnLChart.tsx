@@ -84,8 +84,8 @@ export default function AnalyticsPnLChart({
             />
 
             <Tooltip
-              formatter={(value: number) => [
-                `$${value.toFixed(2)}`,
+              formatter={(value) => [
+                `$${Number(value).toFixed(2)}`,
                 "Balance",
               ]}
               labelFormatter={(label) =>
