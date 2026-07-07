@@ -27,6 +27,7 @@ export default function AnalyticsPage() {
   const [customStartDate, setCustomStartDate] = useState("");
   const [customEndDate, setCustomEndDate] = useState("");
   const [session, setSession] = useState("LONDON");
+  const [pairFilter, setPairFilter] = useState("ALL");
 
   const [stats, setStats] = useState<{
     wins: number;
@@ -161,6 +162,13 @@ export default function AnalyticsPage() {
         tradeDate >= start &&
         tradeDate <= end
       );
+    }
+
+    if (
+      pairFilter !== "ALL" &&
+      trade.pair !== pairFilter
+    ) {
+      return false;
     }
 
     return true;
@@ -346,10 +354,17 @@ export default function AnalyticsPage() {
       <AnalyticsFilters
         dateFilter={dateFilter}
         setDateFilter={setDateFilter}
+
         customStartDate={customStartDate}
         setCustomStartDate={setCustomStartDate}
+
         customEndDate={customEndDate}
         setCustomEndDate={setCustomEndDate}
+
+        pairFilter={pairFilter}
+        setPairFilter={setPairFilter}
+
+        trades={trades}
       />
 
       <AnalyticsStatistics
